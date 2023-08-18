@@ -3,20 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WorkSpaceManagemetApi.DataAccess;
+using WorkSpaceManagemetApi.Models;
 
 #nullable disable
 
 namespace WorkSpaceManagemetApi.Migrations
 {
-    [DbContext(typeof(WorkSpaceDbContext))]
-    [Migration("20230620193247_Migrations")]
-    partial class Migrations
+    [DbContext(typeof(WsDbContext))]
+    partial class WsDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,6 +21,23 @@ namespace WorkSpaceManagemetApi.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("WorkSpaceManagemetApi.Models.Department", b =>
+                {
+                    b.Property<int>("DeptId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DeptId"));
+
+                    b.Property<string>("DeptName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("DeptId");
+
+                    b.ToTable("Department");
+                });
 
             modelBuilder.Entity("WorkSpaceManagemetApi.Models.DeskBooking", b =>
                 {
@@ -63,13 +77,8 @@ namespace WorkSpaceManagemetApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ConfirmPassword")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Department")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("DepId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -83,11 +92,14 @@ namespace WorkSpaceManagemetApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LocationName")
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Phone")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -96,6 +108,10 @@ namespace WorkSpaceManagemetApi.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.HasKey("EmployeeId");
+
+                    b.HasIndex("DepId");
+
+                    b.HasIndex("LocationId");
 
                     b.ToTable("employees");
                 });
@@ -108,23 +124,30 @@ namespace WorkSpaceManagemetApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventId"));
 
+                    b.Property<string>("EventDescription")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
                     b.Property<string>("EventTitle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
-                    b.Property<DateTime>("date")
+                    b.Property<DateTime>("endTime")
                         .HasColumnType("datetime2");
 
                     b.Property<byte[]>("image")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<DateTime>("time")
+                    b.Property<DateTime>("startTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("EventId");
+
+                    b.HasIndex("LocationId");
 
                     b.ToTable("events");
                 });
@@ -156,7 +179,7 @@ namespace WorkSpaceManagemetApi.Migrations
                     b.Property<int>("NumberOfConferenceRooms")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumberOfRooms")
+                    b.Property<int>("NumberOfDesk")
                         .HasColumnType("int");
 
                     b.Property<int>("Pincode")
@@ -214,27 +237,15 @@ namespace WorkSpaceManagemetApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
 
-                    b.Property<string>("Amenities")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("BookedFor")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("BookingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("BookingTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
                     b.Property<string>("EmployeeName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageData")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MeetingTitle")
@@ -244,16 +255,15 @@ namespace WorkSpaceManagemetApi.Migrations
                     b.Property<int>("NumberOfParticipants")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RoomCapacity")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("endTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("RoomLocation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RoomName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("startTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("BookingId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("roomBooking");
                 });
@@ -284,6 +294,52 @@ namespace WorkSpaceManagemetApi.Migrations
                     b.HasKey("RoomId");
 
                     b.ToTable("roomDetail");
+                });
+
+            modelBuilder.Entity("WorkSpaceManagemetApi.Models.Employee", b =>
+                {
+                    b.HasOne("WorkSpaceManagemetApi.Models.Department", "Department")
+                        .WithMany("Employees")
+                        .HasForeignKey("DepId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WorkSpaceManagemetApi.Models.Location", "location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+
+                    b.Navigation("location");
+                });
+
+            modelBuilder.Entity("WorkSpaceManagemetApi.Models.Events", b =>
+                {
+                    b.HasOne("WorkSpaceManagemetApi.Models.Location", "location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("location");
+                });
+
+            modelBuilder.Entity("WorkSpaceManagemetApi.Models.RoomBooking", b =>
+                {
+                    b.HasOne("WorkSpaceManagemetApi.Models.Employee", "employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("employee");
+                });
+
+            modelBuilder.Entity("WorkSpaceManagemetApi.Models.Department", b =>
+                {
+                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

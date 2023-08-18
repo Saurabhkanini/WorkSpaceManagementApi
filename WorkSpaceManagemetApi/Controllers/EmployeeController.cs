@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WorkSpaceManagemetApi.DataAccess;
 using WorkSpaceManagemetApi.Models;
+using WorkSpaceManagemetApi.Repository;
 
 namespace WorkSpaceManagemetApi.Controllers
 {
@@ -10,25 +10,66 @@ namespace WorkSpaceManagemetApi.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly WorkSpaceDbContext workspace;
-        public EmployeeController(WorkSpaceDbContext r)
+        private readonly IEmployee _employeeRepo;
+
+        public EmployeeController(IEmployee employeeRepo)
         {
-            workspace = r;
+            _employeeRepo = employeeRepo;
         }
-        [HttpGet("AllEmployee")]
-        public async Task<ActionResult> GetAllEmp()
+
+        [HttpGet]
+        public ActionResult<IEnumerable<Employee>> GetAllEmployees()
         {
-            var emp = await workspace.employees.ToListAsync();
-            if (emp == null)
+            var employees = _employeeRepo.GetAllEmployee();
+            if (employees == null)
+            {
                 return NotFound();
-            return Ok(emp);
+            }
+            return Ok(employees);
         }
-        [HttpPost("AddEmployee")]
-        public async Task<ActionResult> AddEmp(Employee r)
+
+        [HttpGet("{id}")]
+        public ActionResult<Employee> GetEmployeeById(int id)
         {
-            await workspace.employees.AddAsync(r);
-            workspace.SaveChanges();
-            return Ok(r);
+            var employee = _employeeRepo.GetEmployee(id);
+            if (employee == null)
+            {
+                return NotFound();
+            }
+            return Ok(employee);
+        }
+
+        [HttpPost]
+        public ActionResult<Employee> AddEmployee(Employee employee)
+        {
+            var addedEmployee = _employeeRepo.AddEmployee(employee);
+            if (addedEmployee == null)
+            {
+                return BadRequest();
+            }
+            return CreatedAtAction(nameof(GetEmployeeById), new { id = addedEmployee.EmployeeId }, addedEmployee);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<Employee> UpdateEmployee(int id, Employee employee)
+        {
+            var updatedEmployee = _employeeRepo.UpdateEmployee(employee, id);
+            if (updatedEmployee == null)
+            {
+                return NotFound();
+            }
+            return Ok(updatedEmployee);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Employee> DeleteEmployee(int id)
+        {
+            var deletedEmployee = _employeeRepo.DeleteEmployee(id);
+            if (deletedEmployee == null)
+            {
+                return NotFound();
+            }
+            return Ok(deletedEmployee);
         }
     }
 }

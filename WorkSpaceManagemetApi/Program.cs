@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using WorkSpaceManagemetApi.DataAccess;
+using WorkSpaceManagemetApi.Models;
+using WorkSpaceManagemetApi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +10,14 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<WorkSpaceDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStringForRooms"), sqlServerOptionsAction: sqlOptions =>
+builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+builder.Services.AddDbContext<WsDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnectionStringForRooms"), sqlServerOptionsAction: sqlOptions =>
 {
     sqlOptions.EnableRetryOnFailure();
 }));
+builder.Services.AddScoped<IEmployee, EmployeeRepo>();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowOrigin", builder =>

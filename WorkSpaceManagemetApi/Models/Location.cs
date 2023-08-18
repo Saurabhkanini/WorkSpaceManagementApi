@@ -14,6 +14,7 @@ namespace WorkSpaceManagemetApi.Models
         public string Country { get; set; }
         public byte[] Image { get; set; }
         public int NumberOfConferenceRooms { get; set; }
-        public int NumberOfRooms { get; set; }
+        public int NumberOfDesk { get; set; }
+
     }
 }
