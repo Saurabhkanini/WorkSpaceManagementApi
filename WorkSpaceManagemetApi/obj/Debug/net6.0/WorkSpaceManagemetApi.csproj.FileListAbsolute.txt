@@ -80,3 +80,7 @@ C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkSpaceManagemetApi\obj\Debu
 C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkSpaceManagemetApi\obj\Debug\net6.0\WorkSpaceManagemetApi.pdb
 C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkSpaceManagemetApi\obj\Debug\net6.0\WorkSpaceManagemetApi.genruntimeconfig.cache
 C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkSpaceManagemetApi\obj\Debug\net6.0\ref\WorkSpaceManagemetApi.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkSpaceManagemetApi\bin\Debug\net6.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkSpaceManagemetApi\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkSpaceManagemetApi\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkSpaceManagemetApi\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

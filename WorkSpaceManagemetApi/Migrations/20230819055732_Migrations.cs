@@ -164,7 +164,8 @@ namespace WorkSpaceManagemetApi.Migrations
                     startTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     endTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                    EmployeeId = table.Column<int>(type: "int", nullable: false),
+                    roomId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -174,6 +175,12 @@ namespace WorkSpaceManagemetApi.Migrations
                         column: x => x.EmployeeId,
                         principalTable: "employees",
                         principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_roomBooking_roomDetail_roomId",
+                        column: x => x.roomId,
+                        principalTable: "roomDetail",
+                        principalColumn: "RoomId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -196,6 +203,11 @@ namespace WorkSpaceManagemetApi.Migrations
                 name: "IX_roomBooking_EmployeeId",
                 table: "roomBooking",
                 column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_roomBooking_roomId",
+                table: "roomBooking",
+                column: "roomId");
         }
 
         /// <inheritdoc />
@@ -214,10 +226,10 @@ namespace WorkSpaceManagemetApi.Migrations
                 name: "roomBooking");
 
             migrationBuilder.DropTable(
-                name: "roomDetail");
+                name: "employees");
 
             migrationBuilder.DropTable(
-                name: "employees");
+                name: "roomDetail");
 
             migrationBuilder.DropTable(
                 name: "Department");

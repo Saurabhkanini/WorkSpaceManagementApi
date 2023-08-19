@@ -7,7 +7,7 @@ namespace WorkSpaceManagemetApi.Models
     {
         [Key]
         public int EventId { get; set; }
-        public byte[] image { get; set; }
+        public string imageData { get; set; }
         public string? EventTitle { get; set; }
         [StringLength(200,MinimumLength =5)]
         public string EventDescription { get; set; }

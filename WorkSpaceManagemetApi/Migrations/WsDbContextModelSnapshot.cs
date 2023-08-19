@@ -258,12 +258,17 @@ namespace WorkSpaceManagemetApi.Migrations
                     b.Property<DateTime>("endTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("roomId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("startTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("BookingId");
 
                     b.HasIndex("EmployeeId");
+
+                    b.HasIndex("roomId");
 
                     b.ToTable("roomBooking");
                 });
@@ -333,6 +338,14 @@ namespace WorkSpaceManagemetApi.Migrations
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("WorkSpaceManagemetApi.Models.RoomDetail", "RoomDetail")
+                        .WithMany()
+                        .HasForeignKey("roomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("RoomDetail");
 
                     b.Navigation("employee");
                 });
