@@ -12,9 +12,10 @@ namespace WorkSpaceManagemetApi.Models
         public string State { get; set; }
         public int Pincode { get; set; }
         public string Country { get; set; }
-        public byte[] Image { get; set; }
+        public string ImageData { get; set; }
         public int NumberOfConferenceRooms { get; set; }
         public int NumberOfDesk { get; set; }
+        public ICollection<RoomDetail>? RoomDetail { get; set; }
 
     }
 }

@@ -2,7 +2,7 @@
 
 namespace WorkSpaceManagemetApi.Repository
 {
-    public class DeskBookingRepo
+    public class DeskBookingRepo:IDeskBooking
     {
         private readonly WsDbContext _dbContext;
 

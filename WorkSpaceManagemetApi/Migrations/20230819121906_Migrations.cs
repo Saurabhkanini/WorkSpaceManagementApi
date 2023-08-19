@@ -12,7 +12,7 @@ namespace WorkSpaceManagemetApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Department",
+                name: "department",
                 columns: table => new
                 {
                     DeptId = table.Column<int>(type: "int", nullable: false)
@@ -21,7 +21,7 @@ namespace WorkSpaceManagemetApi.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Department", x => x.DeptId);
+                    table.PrimaryKey("PK_department", x => x.DeptId);
                 });
 
             migrationBuilder.CreateTable(
@@ -52,7 +52,7 @@ namespace WorkSpaceManagemetApi.Migrations
                     State = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Pincode = table.Column<int>(type: "int", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    ImageData = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumberOfConferenceRooms = table.Column<int>(type: "int", nullable: false),
                     NumberOfDesk = table.Column<int>(type: "int", nullable: false)
                 },
@@ -79,23 +79,6 @@ namespace WorkSpaceManagemetApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "roomDetail",
-                columns: table => new
-                {
-                    RoomId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoomName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoomCapacity = table.Column<int>(type: "int", nullable: true),
-                    RoomLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageData = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amenities = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_roomDetail", x => x.RoomId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "employees",
                 columns: table => new
                 {
@@ -115,9 +98,9 @@ namespace WorkSpaceManagemetApi.Migrations
                 {
                     table.PrimaryKey("PK_employees", x => x.EmployeeId);
                     table.ForeignKey(
-                        name: "FK_employees_Department_DepId",
+                        name: "FK_employees_department_DepId",
                         column: x => x.DepId,
-                        principalTable: "Department",
+                        principalTable: "department",
                         principalColumn: "DeptId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -134,7 +117,7 @@ namespace WorkSpaceManagemetApi.Migrations
                 {
                     EventId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    image = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    imageData = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EventTitle = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EventDescription = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     LocationId = table.Column<int>(type: "int", nullable: false),
@@ -150,6 +133,29 @@ namespace WorkSpaceManagemetApi.Migrations
                         principalTable: "location",
                         principalColumn: "Location_Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "roomDetail",
+                columns: table => new
+                {
+                    RoomId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoomName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RoomCapacity = table.Column<int>(type: "int", nullable: true),
+                    RoomLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImageData = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Amenities = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Location_Id = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_roomDetail", x => x.RoomId);
+                    table.ForeignKey(
+                        name: "FK_roomDetail_location_Location_Id",
+                        column: x => x.Location_Id,
+                        principalTable: "location",
+                        principalColumn: "Location_Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -208,6 +214,11 @@ namespace WorkSpaceManagemetApi.Migrations
                 name: "IX_roomBooking_roomId",
                 table: "roomBooking",
                 column: "roomId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_roomDetail_Location_Id",
+                table: "roomDetail",
+                column: "Location_Id");
         }
 
         /// <inheritdoc />
@@ -232,7 +243,7 @@ namespace WorkSpaceManagemetApi.Migrations
                 name: "roomDetail");
 
             migrationBuilder.DropTable(
-                name: "Department");
+                name: "department");
 
             migrationBuilder.DropTable(
                 name: "location");

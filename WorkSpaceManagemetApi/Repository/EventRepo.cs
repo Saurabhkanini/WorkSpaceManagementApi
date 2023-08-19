@@ -2,7 +2,7 @@
 
 namespace WorkSpaceManagemetApi.Repository
 {
-    public class EventRepo
+    public class EventRepo:IEvent
     {
         private readonly WsDbContext _dbContext;
 

@@ -9,7 +9,6 @@ namespace WorkSpaceManagemetApi.Controllers
     [ApiController]
     public class WorkSpaceController : ControllerBase
     {
-       
-       
+         
     }
 }

@@ -12,7 +12,7 @@ using WorkSpaceManagemetApi.Models;
 namespace WorkSpaceManagemetApi.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20230819055732_Migrations")]
+    [Migration("20230819121906_Migrations")]
     partial class Migrations
     {
         /// <inheritdoc />
@@ -39,7 +39,7 @@ namespace WorkSpaceManagemetApi.Migrations
 
                     b.HasKey("DeptId");
 
-                    b.ToTable("Department");
+                    b.ToTable("department");
                 });
 
             modelBuilder.Entity("WorkSpaceManagemetApi.Models.DeskBooking", b =>
@@ -141,9 +141,9 @@ namespace WorkSpaceManagemetApi.Migrations
                     b.Property<DateTime>("endTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte[]>("image")
+                    b.Property<string>("imageData")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("startTime")
                         .HasColumnType("datetime2");
@@ -175,9 +175,9 @@ namespace WorkSpaceManagemetApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Image")
+                    b.Property<string>("ImageData")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NumberOfConferenceRooms")
                         .HasColumnType("int");
@@ -290,6 +290,9 @@ namespace WorkSpaceManagemetApi.Migrations
                     b.Property<string>("ImageData")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Location_Id")
+                        .HasColumnType("int");
+
                     b.Property<int?>("RoomCapacity")
                         .HasColumnType("int");
 
@@ -300,6 +303,8 @@ namespace WorkSpaceManagemetApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoomId");
+
+                    b.HasIndex("Location_Id");
 
                     b.ToTable("roomDetail");
                 });
@@ -353,9 +358,21 @@ namespace WorkSpaceManagemetApi.Migrations
                     b.Navigation("employee");
                 });
 
+            modelBuilder.Entity("WorkSpaceManagemetApi.Models.RoomDetail", b =>
+                {
+                    b.HasOne("WorkSpaceManagemetApi.Models.Location", null)
+                        .WithMany("RoomDetail")
+                        .HasForeignKey("Location_Id");
+                });
+
             modelBuilder.Entity("WorkSpaceManagemetApi.Models.Department", b =>
                 {
                     b.Navigation("Employees");
+                });
+
+            modelBuilder.Entity("WorkSpaceManagemetApi.Models.Location", b =>
+                {
+                    b.Navigation("RoomDetail");
                 });
 #pragma warning restore 612, 618
         }
