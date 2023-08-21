@@ -17,6 +17,12 @@ builder.Services.AddDbContext<WsDbContext>(options => options.UseSqlServer(build
     sqlOptions.EnableRetryOnFailure();
 }));
 builder.Services.AddScoped<IEmployee, EmployeeRepo>();
+builder.Services.AddScoped<ILocation, LocationRepo>();
+builder.Services.AddScoped<IEvent, EventRepo>();
+builder.Services.AddScoped<INotification, NotificationRepo>();
+builder.Services.AddScoped<IDeskBooking, DeskBookingRepo>();
+builder.Services.AddScoped<IRoomBooking, RoomBookingRepo>();
+builder.Services.AddScoped<IRoomDetail, RoomDetailRepo>();
 
 builder.Services.AddCors(options =>
 {

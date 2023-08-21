@@ -13,5 +13,6 @@ namespace WorkSpaceManagemetApi.Models
         public DbSet<Location> location { get; set; }
         public DbSet<Notification> notifications { get; set; }
         public DbSet<Department> department { get; set; }
+        public DbSet<AdminRegister> adminRegisters { get; set; }
     }
 }

@@ -18,7 +18,7 @@ namespace WorkSpaceManagemetApi.Models
         public string Phone { get; set; }
         public string AddPassword { get; set; }
         public string Title { get; set; }
-        public byte[] UserImage { get; set; } 
+        public string imageData { get; set; } 
         public Department? Department { get; set; }
         public Location ?location { get; set; } 
     }
