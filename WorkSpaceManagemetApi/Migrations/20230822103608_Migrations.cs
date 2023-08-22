@@ -5,10 +5,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WorkSpaceManagemetApi.Migrations
 {
-    /// <inheritdoc />
     public partial class Migrations : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -235,7 +233,6 @@ namespace WorkSpaceManagemetApi.Migrations
                 column: "Location_Id");
         }
 
-        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

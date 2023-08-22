@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkSpaceManagemetApi.Models
 {
@@ -9,9 +10,9 @@ namespace WorkSpaceManagemetApi.Models
         public string ?RoomName { get; set; }
         public int ?RoomCapacity { get; set; }   
         public string? RoomLocation { get; set; }    
-        public string? ImageData { get; set; } 
-        
-        public string? Amenities { get; set; }   
+        public string? ImageData { get; set; }
 
+        [Column(TypeName = "nvarchar(max)")] // Use nvarchar(max) for JSON storage in SQL Server
+        public string? Amenities { get; set; }
     }
 }
