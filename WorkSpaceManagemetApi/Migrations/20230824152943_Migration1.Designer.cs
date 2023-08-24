@@ -12,8 +12,8 @@ using WorkSpaceManagemetApi.Models;
 namespace WorkSpaceManagemetApi.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20230822103608_Migrations")]
-    partial class Migrations
+    [Migration("20230824152943_Migration1")]
+    partial class Migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,10 @@ namespace WorkSpaceManagemetApi.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -80,6 +84,10 @@ namespace WorkSpaceManagemetApi.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("EmployeeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -260,16 +268,8 @@ namespace WorkSpaceManagemetApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"), 1L, 1);
 
-                    b.Property<string>("BookedFor")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
-
-                    b.Property<string>("EmployeeName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MeetingTitle")
                         .IsRequired()
