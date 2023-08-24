@@ -59,7 +59,7 @@ namespace WorkSpaceManagemetApi.Repository
                 RoomBooking existingBooking = _dbContext.roomBooking.Find(id);
                 if (existingBooking != null)
                 {
-                    existingBooking.BookedFor = rb.BookedFor;
+                    existingBooking.MeetingTitle = rb.MeetingTitle;
                     // Update other properties of the booking here
                     _dbContext.SaveChanges();
                 }

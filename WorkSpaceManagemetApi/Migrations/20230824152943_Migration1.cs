@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WorkSpaceManagemetApi.Migrations
 {
-    public partial class Migrations : Migration
+    public partial class Migration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,6 +15,7 @@ namespace WorkSpaceManagemetApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -42,6 +43,7 @@ namespace WorkSpaceManagemetApi.Migrations
                 {
                     BookingId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BookingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -178,10 +180,8 @@ namespace WorkSpaceManagemetApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     MeetingTitle = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumberOfParticipants = table.Column<int>(type: "int", nullable: false),
-                    BookedFor = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     startTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     endTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     EmployeeId = table.Column<int>(type: "int", nullable: false),
                     roomId = table.Column<int>(type: "int", nullable: false)
                 },

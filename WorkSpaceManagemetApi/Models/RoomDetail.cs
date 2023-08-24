@@ -12,7 +12,7 @@ namespace WorkSpaceManagemetApi.Models
         public string? RoomLocation { get; set; }    
         public string? ImageData { get; set; }
 
-        [Column(TypeName = "nvarchar(max)")] // Use nvarchar(max) for JSON storage in SQL Server
+        [Column(TypeName = "nvarchar(max)")] 
         public string? Amenities { get; set; }
     }
 }
