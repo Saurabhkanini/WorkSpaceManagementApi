@@ -7,6 +7,7 @@ namespace WorkSpaceManagemetApi.Models
     {
         [Key]
         public int BookingId { get; set; }
+        public string Location { get; set; }
         public DateTime BookingDate { get; set; }   
         public DateTime BookingTime { get; set; }
         public string EmployeeName { get; set; }
