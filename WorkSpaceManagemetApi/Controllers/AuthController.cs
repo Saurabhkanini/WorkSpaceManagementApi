@@ -32,6 +32,7 @@ namespace WorkSpaceManagemetApi.Controllers
 
                 var user = new AdminRegister()
                 {
+                    Name = ud.Name,
                     Email = ud.Email,
                     Password = hashpassword,
                 

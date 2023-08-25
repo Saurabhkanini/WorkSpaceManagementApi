@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WorkSpaceManagemetApi.Migrations
 {
-    public partial class Migration1 : Migration
+    public partial class Migrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -38,23 +38,6 @@ namespace WorkSpaceManagemetApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "deskBookings",
-                columns: table => new
-                {
-                    BookingId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BookingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_deskBookings", x => x.BookingId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "location",
                 columns: table => new
                 {
@@ -73,23 +56,6 @@ namespace WorkSpaceManagemetApi.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_location", x => x.Location_Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "notifications",
-                columns: table => new
-                {
-                    NotificationId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NotificationSubject = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Time = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_notifications", x => x.NotificationId);
                 });
 
             migrationBuilder.CreateTable(
@@ -150,6 +116,29 @@ namespace WorkSpaceManagemetApi.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "notifications",
+                columns: table => new
+                {
+                    NotificationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NotificationSubject = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LocationId = table.Column<int>(type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_notifications", x => x.NotificationId);
+                    table.ForeignKey(
+                        name: "FK_notifications_location_LocationId",
+                        column: x => x.LocationId,
+                        principalTable: "location",
+                        principalColumn: "Location_Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "roomDetail",
                 columns: table => new
                 {
@@ -157,19 +146,42 @@ namespace WorkSpaceManagemetApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     RoomName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RoomCapacity = table.Column<int>(type: "int", nullable: true),
-                    RoomLocation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LocationId = table.Column<int>(type: "int", nullable: false),
                     ImageData = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Amenities = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Location_Id = table.Column<int>(type: "int", nullable: true)
+                    Amenities = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_roomDetail", x => x.RoomId);
                     table.ForeignKey(
-                        name: "FK_roomDetail_location_Location_Id",
-                        column: x => x.Location_Id,
+                        name: "FK_roomDetail_location_LocationId",
+                        column: x => x.LocationId,
                         principalTable: "location",
-                        principalColumn: "Location_Id");
+                        principalColumn: "Location_Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "deskBookings",
+                columns: table => new
+                {
+                    BookingId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    BookingTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_deskBookings", x => x.BookingId);
+                    table.ForeignKey(
+                        name: "FK_deskBookings_employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "employees",
+                        principalColumn: "EmployeeId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -182,8 +194,9 @@ namespace WorkSpaceManagemetApi.Migrations
                     NumberOfParticipants = table.Column<int>(type: "int", nullable: false),
                     startTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     endTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EmployeeId = table.Column<int>(type: "int", nullable: false),
-                    roomId = table.Column<int>(type: "int", nullable: false)
+                    EmployeeName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    roomId = table.Column<int>(type: "int", nullable: false),
+                    EmployeeId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -192,8 +205,7 @@ namespace WorkSpaceManagemetApi.Migrations
                         name: "FK_roomBooking_employees_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "employees",
-                        principalColumn: "EmployeeId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "EmployeeId");
                     table.ForeignKey(
                         name: "FK_roomBooking_roomDetail_roomId",
                         column: x => x.roomId,
@@ -201,6 +213,11 @@ namespace WorkSpaceManagemetApi.Migrations
                         principalColumn: "RoomId",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_deskBookings_EmployeeId",
+                table: "deskBookings",
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_employees_DepId",
@@ -218,6 +235,11 @@ namespace WorkSpaceManagemetApi.Migrations
                 column: "LocationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_notifications_LocationId",
+                table: "notifications",
+                column: "LocationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_roomBooking_EmployeeId",
                 table: "roomBooking",
                 column: "EmployeeId");
@@ -228,9 +250,9 @@ namespace WorkSpaceManagemetApi.Migrations
                 column: "roomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_roomDetail_Location_Id",
+                name: "IX_roomDetail_LocationId",
                 table: "roomDetail",
-                column: "Location_Id");
+                column: "LocationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

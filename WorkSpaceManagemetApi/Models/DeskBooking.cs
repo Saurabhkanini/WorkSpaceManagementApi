@@ -13,6 +13,7 @@ namespace WorkSpaceManagemetApi.Models
         public string EmployeeName { get; set; }
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
+        public Employee? Employee { get; set; }
 
     }
 }

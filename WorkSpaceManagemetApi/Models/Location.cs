@@ -16,6 +16,9 @@ namespace WorkSpaceManagemetApi.Models
         public int NumberOfConferenceRooms { get; set; }
         public int NumberOfDesk { get; set; }
         public ICollection<RoomDetail>? RoomDetail { get; set; }
+        public ICollection<Employee>? Employee { get; set; }
+        public ICollection<Events> ? events { get; set; }   
+        public ICollection<Notification>? Notification { get; set; }    
 
     }
 }

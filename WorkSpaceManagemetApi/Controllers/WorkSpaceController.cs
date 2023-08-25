@@ -9,6 +9,21 @@ namespace WorkSpaceManagemetApi.Controllers
     [ApiController]
     public class WorkSpaceController : ControllerBase
     {
-         
+        private readonly WsDbContext _dbContext;
+        public WorkSpaceController(WsDbContext dbc)
+        {
+            this._dbContext = dbc;  
+
+        }
+         [HttpGet("location/employee")]
+         public async Task<ActionResult> getEmployeesByLocation(string locationName)
+        {
+            var employees=_dbContext.employees.Include(x=>x.location).FirstOrDefault(x=>x.location.City==locationName);
+            if(employees==null)
+            {
+                return NotFound($"No Employee Found With LocationName {locationName}");
+            }
+            return Ok(employees);
+        }
     }
 }

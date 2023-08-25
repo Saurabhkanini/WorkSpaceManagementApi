@@ -91,6 +91,8 @@ namespace WorkSpaceManagemetApi.Migrations
 
                     b.HasKey("BookingId");
 
+                    b.HasIndex("EmployeeId");
+
                     b.ToTable("deskBookings");
                 });
 
@@ -242,9 +244,8 @@ namespace WorkSpaceManagemetApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NotificationSubject")
                         .IsRequired()
@@ -254,6 +255,8 @@ namespace WorkSpaceManagemetApi.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("NotificationId");
+
+                    b.HasIndex("LocationId");
 
                     b.ToTable("notifications");
                 });
@@ -266,8 +269,12 @@ namespace WorkSpaceManagemetApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"), 1L, 1);
 
-                    b.Property<int>("EmployeeId")
+                    b.Property<int?>("EmployeeId")
                         .HasColumnType("int");
+
+                    b.Property<string>("EmployeeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("MeetingTitle")
                         .IsRequired()
@@ -308,23 +315,31 @@ namespace WorkSpaceManagemetApi.Migrations
                     b.Property<string>("ImageData")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Location_Id")
+                    b.Property<int>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<int?>("RoomCapacity")
                         .HasColumnType("int");
-
-                    b.Property<string>("RoomLocation")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoomName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoomId");
 
-                    b.HasIndex("Location_Id");
+                    b.HasIndex("LocationId");
 
                     b.ToTable("roomDetail");
+                });
+
+            modelBuilder.Entity("WorkSpaceManagemetApi.Models.DeskBooking", b =>
+                {
+                    b.HasOne("WorkSpaceManagemetApi.Models.Employee", "Employee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Employee");
                 });
 
             modelBuilder.Entity("WorkSpaceManagemetApi.Models.Employee", b =>
@@ -336,7 +351,7 @@ namespace WorkSpaceManagemetApi.Migrations
                         .IsRequired();
 
                     b.HasOne("WorkSpaceManagemetApi.Models.Location", "location")
-                        .WithMany()
+                        .WithMany("Employee")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -349,7 +364,18 @@ namespace WorkSpaceManagemetApi.Migrations
             modelBuilder.Entity("WorkSpaceManagemetApi.Models.Events", b =>
                 {
                     b.HasOne("WorkSpaceManagemetApi.Models.Location", "location")
-                        .WithMany()
+                        .WithMany("events")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("location");
+                });
+
+            modelBuilder.Entity("WorkSpaceManagemetApi.Models.Notification", b =>
+                {
+                    b.HasOne("WorkSpaceManagemetApi.Models.Location", "location")
+                        .WithMany("Notification")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -361,9 +387,7 @@ namespace WorkSpaceManagemetApi.Migrations
                 {
                     b.HasOne("WorkSpaceManagemetApi.Models.Employee", "employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmployeeId");
 
                     b.HasOne("WorkSpaceManagemetApi.Models.RoomDetail", "RoomDetail")
                         .WithMany()
@@ -378,9 +402,13 @@ namespace WorkSpaceManagemetApi.Migrations
 
             modelBuilder.Entity("WorkSpaceManagemetApi.Models.RoomDetail", b =>
                 {
-                    b.HasOne("WorkSpaceManagemetApi.Models.Location", null)
+                    b.HasOne("WorkSpaceManagemetApi.Models.Location", "location")
                         .WithMany("RoomDetail")
-                        .HasForeignKey("Location_Id");
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("location");
                 });
 
             modelBuilder.Entity("WorkSpaceManagemetApi.Models.Department", b =>
@@ -390,7 +418,13 @@ namespace WorkSpaceManagemetApi.Migrations
 
             modelBuilder.Entity("WorkSpaceManagemetApi.Models.Location", b =>
                 {
+                    b.Navigation("Employee");
+
+                    b.Navigation("Notification");
+
                     b.Navigation("RoomDetail");
+
+                    b.Navigation("events");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,11 +8,13 @@ namespace WorkSpaceManagemetApi.Models
         [Key]
         public int RoomId { get; set; }
         public string ?RoomName { get; set; }
-        public int ?RoomCapacity { get; set; }   
-        public string? RoomLocation { get; set; }    
+        public int ?RoomCapacity { get; set; }  
+        [ForeignKey("Location")]
+        public int LocationId { get; set; }    
         public string? ImageData { get; set; }
 
         [Column(TypeName = "nvarchar(max)")] 
         public string? Amenities { get; set; }
+        public Location ?location { get; set; } 
     }
 }

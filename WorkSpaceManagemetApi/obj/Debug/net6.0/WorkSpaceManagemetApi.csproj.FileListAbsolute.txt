@@ -139,3 +139,5 @@ D:\DOC\Figma Project\Workspace_API\WorkSpaceManagementApi\WorkSpaceManagemetApi\
 D:\DOC\Figma Project\Workspace_API\WorkSpaceManagementApi\WorkSpaceManagemetApi\obj\Debug\net6.0\ref\WorkSpaceManagemetApi.dll
 D:\DOC\Figma Project\Workspace_API\WorkSpaceManagementApi\WorkSpaceManagemetApi\bin\Debug\net6.0\BCrypt.Net-Next.dll
 D:\DOC\Figma Project\Workspace_API\WorkSpaceManagementApi\WorkSpaceManagemetApi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkSpaceManagemetApi\bin\Debug\net6.0\BCrypt.Net-Next.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkSpaceManagemetApi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

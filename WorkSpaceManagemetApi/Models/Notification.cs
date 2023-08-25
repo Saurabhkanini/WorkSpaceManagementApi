@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WorkSpaceManagemetApi.Models
 {
@@ -8,8 +9,10 @@ namespace WorkSpaceManagemetApi.Models
         public int NotificationId { get; set; }
         public string NotificationSubject { get; set; }
         public string Description { get; set; }
-        public string Location { get; set; }
+        [ForeignKey("Location")]
+        public int LocationId { get; set; }
         public DateTime Date { get; set; }
         public DateTime Time { get; set; }
+        public Location? location { get; set; } 
     }
 }
