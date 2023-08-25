@@ -9,10 +9,8 @@ namespace WorkSpaceManagemetApi.Models
         public int BookingId { get; set; }
         public string MeetingTitle { get; set; }
         public int NumberOfParticipants { get; set; }
-        public string BookedFor { get; set; }
         public DateTime startTime { get; set; }
         public DateTime endTime { get; set; }
-        public string EmployeeName { get; set; }
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
         [ForeignKey("RoomDetail")]
