@@ -82,5 +82,23 @@ namespace WorkSpaceManagemetApi.Controllers
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
             return jwt;
         }
+        [HttpGet("getAdminByEmail")]
+        public async Task<ActionResult> GetUserByEmail(string email)
+        {
+            var user=uDbC.adminRegisters.FirstOrDefault(x => x.Email == email);
+            if (user == null)
+            {
+                return NotFound($"User Not Found With {email}");
+            }
+            return Ok(user);
+        }
+        [HttpGet]
+
+        public async Task<ActionResult> GetAllAdmin()
+        {
+            var admins = uDbC.adminRegisters.ToList();
+            return Ok(admins);
+
+        }
     }
 }

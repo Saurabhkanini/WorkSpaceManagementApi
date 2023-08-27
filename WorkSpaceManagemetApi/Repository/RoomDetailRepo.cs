@@ -1,4 +1,5 @@
-﻿using WorkSpaceManagemetApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using WorkSpaceManagemetApi.Models;
 
 namespace WorkSpaceManagemetApi.Repository
 {
@@ -15,7 +16,7 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.roomDetail.ToList();
+                return _dbContext.roomDetail.Include(x=>x.location).ToList();
             }
             catch (Exception ex)
             {
@@ -28,7 +29,7 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.roomDetail.Find(id);
+                return _dbContext.roomDetail.Include(x=>x.location).FirstOrDefault(x=>x.RoomId==id);
             }
             catch (Exception ex)
             {

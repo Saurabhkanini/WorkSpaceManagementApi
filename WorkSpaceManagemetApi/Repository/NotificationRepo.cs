@@ -1,4 +1,5 @@
-﻿using WorkSpaceManagemetApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using WorkSpaceManagemetApi.Models;
 
 namespace WorkSpaceManagemetApi.Repository
 {
@@ -15,7 +16,7 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.notifications.ToList();
+                return _dbContext.notifications.Include(x=>x.location).ToList();
             }
             catch (Exception ex)
             {
