@@ -11,5 +11,7 @@ namespace WorkSpaceManagemetApi.Models
         public string Location { get; set; }
         public DateTime Date { get; set; }
         public DateTime Time { get; set; }
+
+      
     }
 }
