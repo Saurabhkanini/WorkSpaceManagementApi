@@ -36,7 +36,6 @@ namespace WorkSpaceManagemetApi.Controllers
                 return NotFound($"No Events found In {locationName}");
             }
             return Ok(events);
-
         }
         [HttpGet("notification/location")]
         public async Task<ActionResult> GetNotificationByLocation(string locationName)
@@ -49,7 +48,30 @@ namespace WorkSpaceManagemetApi.Controllers
                 return NotFound($"No Notification found In {locationName}");
             }
             return Ok(notifications);
-
+        }
+        [HttpGet("manageConf/location")]
+        public async Task<ActionResult> GetConferenceByLocation(string locationName)
+        {
+            var rooms = await _dbContext.roomDetail
+                           .Where(e => e.location.City.ToLower() == locationName.ToLower()).Include(x => x.location)
+                           .ToListAsync();
+            if (rooms == null)
+            {
+                return NotFound($"No Room found In {locationName}");
+            }
+            return Ok(rooms);
+        }
+        [HttpGet("roomBooking/location")]
+        public async Task<ActionResult> GetRoomBookingByLocation(string locationName)
+        {
+            var bookings = await _dbContext.roomBooking
+                           .Where(e => e.RoomDetail.location.City.ToLower() == locationName.ToLower()).Include(x => x.RoomDetail)
+                           .ToListAsync();
+            if (bookings == null)
+            {
+                return NotFound($"No Booking found In {locationName}");
+            }
+            return Ok(bookings);
         }
     }
 }
