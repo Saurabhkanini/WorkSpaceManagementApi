@@ -50,7 +50,6 @@ namespace TestProjectWorkSpaceManagementApi
                 RoomId = 3,
                 RoomName = "Meeting Room C",
                 RoomCapacity = 12,
-                RoomLocation = "3rd Floor",
                 ImageData = "base64image",
                 Amenities = "Whiteboard, Projector"
             };
@@ -76,7 +75,6 @@ namespace TestProjectWorkSpaceManagementApi
                 RoomId = existingRoomId,
                 RoomName = "Updated Room",
                 RoomCapacity = 15,
-                RoomLocation = "Updated Location",
                 ImageData = "base64image",
                 Amenities = "Updated Amenities"
             };

@@ -52,7 +52,6 @@ namespace TestProjectWorkSpaceManagementApi
                 NumberOfParticipants = 10,
                 startTime = DateTime.Now.AddDays(2),
                 endTime = DateTime.Now.AddDays(2).AddHours(2),
-                EmployeeId = 1,
                 roomId = 2
             };
 
@@ -79,7 +78,6 @@ namespace TestProjectWorkSpaceManagementApi
                 NumberOfParticipants = 15,
                 startTime = DateTime.Now.AddDays(3),
                 endTime = DateTime.Now.AddDays(3).AddHours(3),
-                EmployeeId = 2,
                 roomId = 3
             };
 

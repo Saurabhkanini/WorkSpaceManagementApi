@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\itzsa\\source\\repos\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj": {}
+    "E:\\WorkSpaceManagementApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\itzsa\\source\\repos\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj": {
+    "E:\\WorkSpaceManagementApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\itzsa\\source\\repos\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj",
+        "projectUniqueName": "E:\\WorkSpaceManagementApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj",
         "projectName": "WorkSpaceManagemetApi",
-        "projectPath": "C:\\Users\\itzsa\\source\\repos\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj",
-        "packagesPath": "C:\\Users\\itzsa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\itzsa\\source\\repos\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi\\obj\\",
+        "projectPath": "E:\\WorkSpaceManagementApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj",
+        "packagesPath": "C:\\Users\\Shubham Kumar\\.nuget\\packages\\",
+        "outputPath": "E:\\WorkSpaceManagementApi\\WorkSpaceManagemetApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\itzsa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Shubham Kumar\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -73,7 +73,8 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
@@ -85,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

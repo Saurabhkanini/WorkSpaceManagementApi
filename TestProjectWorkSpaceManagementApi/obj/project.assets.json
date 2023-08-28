@@ -2628,7 +2628,6 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.21",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.21",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21",
-          "Moq": "4.20.69",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
         "compile": {
@@ -8155,6 +8154,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Microsoft.NET.Test.Sdk >= 17.3.2",
+      "Moq >= 4.20.69",
       "WorkSpaceManagemetApi >= 1.0.0",
       "coverlet.collector >= 3.1.2",
       "xunit >= 2.4.2",
@@ -8162,24 +8162,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Dell\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Shubham Kumar\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub\\WorkSpaceManagementApi\\TestProjectWorkSpaceManagementApi\\TestProjectWorkSpaceManagementApi.csproj",
+      "projectUniqueName": "E:\\WorkSpaceManagementApi\\TestProjectWorkSpaceManagementApi\\TestProjectWorkSpaceManagementApi.csproj",
       "projectName": "TestProjectWorkSpaceManagementApi",
-      "projectPath": "D:\\GitHub\\WorkSpaceManagementApi\\TestProjectWorkSpaceManagementApi\\TestProjectWorkSpaceManagementApi.csproj",
-      "packagesPath": "C:\\Users\\Dell\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub\\WorkSpaceManagementApi\\TestProjectWorkSpaceManagementApi\\obj\\",
+      "projectPath": "E:\\WorkSpaceManagementApi\\TestProjectWorkSpaceManagementApi\\TestProjectWorkSpaceManagementApi.csproj",
+      "packagesPath": "C:\\Users\\Shubham Kumar\\.nuget\\packages\\",
+      "outputPath": "E:\\WorkSpaceManagementApi\\TestProjectWorkSpaceManagementApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Dell\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Shubham Kumar\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8187,15 +8182,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net7.0": {
           "targetAlias": "net7.0",
           "projectReferences": {
-            "D:\\GitHub\\WorkSpaceManagementApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj": {
-              "projectPath": "D:\\GitHub\\WorkSpaceManagementApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj"
+            "E:\\WorkSpaceManagementApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj": {
+              "projectPath": "E:\\WorkSpaceManagementApi\\WorkSpaceManagemetApi\\WorkSpaceManagemetApi.csproj"
             }
           }
         }
@@ -8213,6 +8207,10 @@
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
             "version": "[17.3.2, )"
+          },
+          "Moq": {
+            "target": "Package",
+            "version": "[4.20.69, )"
           },
           "coverlet.collector": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
