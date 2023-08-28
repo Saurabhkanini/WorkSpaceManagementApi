@@ -2628,7 +2628,6 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.21",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.21",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21",
-          "Moq": "4.20.69",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
         "compile": {
@@ -8155,6 +8154,7 @@
   "projectFileDependencyGroups": {
     "net7.0": [
       "Microsoft.NET.Test.Sdk >= 17.3.2",
+      "Moq >= 4.20.69",
       "WorkSpaceManagemetApi >= 1.0.0",
       "coverlet.collector >= 3.1.2",
       "xunit >= 2.4.2",
@@ -8213,6 +8213,10 @@
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
             "version": "[17.3.2, )"
+          },
+          "Moq": {
+            "target": "Package",
+            "version": "[4.20.69, )"
           },
           "coverlet.collector": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

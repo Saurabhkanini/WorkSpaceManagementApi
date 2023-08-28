@@ -49,7 +49,6 @@ namespace TestProjectWorkSpaceManagementApi
                 NotificationId = 3,
                 NotificationSubject = "New Notification",
                 Description = "New notification description",
-                Location = "New York",
                 Date = DateTime.Now,
                 Time = new DateTime(2023, 8, 1, 10, 0, 0)
             };
@@ -75,7 +74,6 @@ namespace TestProjectWorkSpaceManagementApi
                 NotificationId = existingNotificationId,
                 NotificationSubject = "Updated Notification",
                 Description = "Updated notification description",
-                Location = "Updated Location",
                 Date = DateTime.Now.AddDays(1),
                 Time = new DateTime(2023, 8, 1, 10, 0, 0)
 
