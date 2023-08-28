@@ -12,7 +12,7 @@ using WorkSpaceManagemetApi.Models;
 namespace WorkSpaceManagemetApi.Migrations
 {
     [DbContext(typeof(WsDbContext))]
-    [Migration("20230825121818_Migrations")]
+    [Migration("20230828101846_Migrations")]
     partial class Migrations
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

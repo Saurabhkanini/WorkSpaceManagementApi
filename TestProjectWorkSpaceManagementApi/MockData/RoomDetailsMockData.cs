@@ -14,7 +14,6 @@ namespace TestProjectWorkSpaceManagementApi.MockData
                     RoomId = 1,
                     RoomName = "Conference Room A",
                     RoomCapacity = 20,
-                    RoomLocation = "5th Floor",
                     ImageData = "base64image",
                     Amenities = "Projector, Whiteboard, Video Conferencing"
                 },
@@ -23,7 +22,6 @@ namespace TestProjectWorkSpaceManagementApi.MockData
                     RoomId = 2,
                     RoomName = "Meeting Room B",
                     RoomCapacity = 10,
-                    RoomLocation = "2nd Floor",
                     ImageData = "base64image",
                     Amenities = "Whiteboard, Speakerphone"
                 }

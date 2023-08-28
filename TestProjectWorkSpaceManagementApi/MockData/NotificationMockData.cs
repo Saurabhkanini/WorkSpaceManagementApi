@@ -15,7 +15,6 @@ namespace TestProjectWorkSpaceManagementApi
                     NotificationId = 1,
                     NotificationSubject = "Subject 1",
                     Description = "Description 1",
-                    Location = "Location 1",
                     Date = new DateTime(2023, 8, 1),
                     Time = new DateTime(2023, 8, 1, 10, 0, 0)
                 },
@@ -24,7 +23,6 @@ namespace TestProjectWorkSpaceManagementApi
                     NotificationId = 2,
                     NotificationSubject = "Subject 2",
                     Description = "Description 2",
-                    Location = "Location 2",
                     Date = new DateTime(2023, 8, 2),
                     Time = new DateTime(2023, 8, 2, 15, 30, 0)
                 }

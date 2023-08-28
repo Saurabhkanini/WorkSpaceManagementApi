@@ -17,7 +17,6 @@ namespace WorkSpaceManagemetApi.MockData
                     NumberOfParticipants = 10,
                     startTime = DateTime.Now.AddHours(1),
                     endTime = DateTime.Now.AddHours(2),
-                    EmployeeId = 1,
                     roomId = 101
                 },
                 new RoomBooking
@@ -27,7 +26,6 @@ namespace WorkSpaceManagemetApi.MockData
                     NumberOfParticipants = 5,
                     startTime = DateTime.Now.AddHours(3),
                     endTime = DateTime.Now.AddHours(4),
-                    EmployeeId = 2,
                     roomId = 102
                 }
             };
