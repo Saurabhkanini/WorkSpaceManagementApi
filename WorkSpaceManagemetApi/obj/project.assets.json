@@ -780,6 +780,34 @@
             "rid": "win"
           }
         }
+      },
+      "WorkspaceManagement.BusinessLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.21",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21",
+          "WorkspaceManagement.DataAccessLayer": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WorkspaceManagement.BusinessLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WorkspaceManagement.BusinessLayer.dll": {}
+        }
+      },
+      "WorkspaceManagement.DataAccessLayer/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21"
+        },
+        "compile": {
+          "bin/placeholder/WorkspaceManagement.DataAccessLayer.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WorkspaceManagement.DataAccessLayer.dll": {}
+        }
       }
     }
   },
@@ -2267,6 +2295,16 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "WorkspaceManagement.BusinessLayer/1.0.0": {
+      "type": "project",
+      "path": "../WorkspaceManagement.BusinessLayer/WorkspaceManagement.BusinessLayer.csproj",
+      "msbuildProject": "../WorkspaceManagement.BusinessLayer/WorkspaceManagement.BusinessLayer.csproj"
+    },
+    "WorkspaceManagement.DataAccessLayer/1.0.0": {
+      "type": "project",
+      "path": "../WorkspaceManagement.DataAccessLayer/WorkspaceManagement.DataAccessLayer.csproj",
+      "msbuildProject": "../WorkspaceManagement.DataAccessLayer/WorkspaceManagement.DataAccessLayer.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2276,7 +2314,9 @@
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 6.0.21",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.21",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.21",
-      "Swashbuckle.AspNetCore >= 6.2.3"
+      "Swashbuckle.AspNetCore >= 6.2.3",
+      "WorkspaceManagement.BusinessLayer >= 1.0.0",
+      "WorkspaceManagement.DataAccessLayer >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -2305,7 +2345,14 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\itzsa\\source\\repos\\WorkSpaceManagemetApi\\WorkspaceManagement.BusinessLayer\\WorkspaceManagement.BusinessLayer.csproj": {
+              "projectPath": "C:\\Users\\itzsa\\source\\repos\\WorkSpaceManagemetApi\\WorkspaceManagement.BusinessLayer\\WorkspaceManagement.BusinessLayer.csproj"
+            },
+            "C:\\Users\\itzsa\\source\\repos\\WorkSpaceManagemetApi\\WorkspaceManagement.DataAccessLayer\\WorkspaceManagement.DataAccessLayer.csproj": {
+              "projectPath": "C:\\Users\\itzsa\\source\\repos\\WorkSpaceManagemetApi\\WorkspaceManagement.DataAccessLayer\\WorkspaceManagement.DataAccessLayer.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WorkSpaceManagemetApi.Models;
+using WorkspaceManagement.BusinessLayer.IServices;
+using WorkspaceManagement.DataAccessLayer.Models;
 
 namespace WorkSpaceManagemetApi.Controllers
 {
@@ -9,59 +10,55 @@ namespace WorkSpaceManagemetApi.Controllers
     [ApiController]
     public class DepartmentController : ControllerBase
     {
-        private readonly WsDbContext mytdb;
-        public DepartmentController(WsDbContext mytrdb)
+        private readonly IDepartmentService ideptSer;
+        public DepartmentController(IDepartmentService ideptSer)
         {
-            mytdb = mytrdb;
+            this.ideptSer = ideptSer;
         }
         [HttpGet]
-        public async Task<ActionResult> GetAllDepartment()
+        public ActionResult  GetAllDepartment()
         {
-            var dept = await mytdb.department.ToListAsync();
+            var dept = ideptSer.GetAllDepartments();
             if (dept != null)
             {
                 return Ok(dept);
             }
-            return BadRequest("No Dept Found");
+            return NotFound("No Dept Found");
 
         }
         [HttpPost]
-        public async Task<ActionResult> AddDepartment(Department ta)
+        public ActionResult AddDepartment(Department ta)
         {
-            await mytdb.department.AddAsync(ta);
-            await mytdb.SaveChangesAsync();
+             ideptSer.AddDepartment(ta);
             return Ok(ta);
         }
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateDepartment(Department ta, int id)
+        public ActionResult UpdateDepartment(Department ta, int id)
         {
-            var dept = await mytdb.department.FindAsync(id);
+            var dept = ideptSer.UpdateDepartment(ta,id);
             if (dept != null)
             {
 
-                mytdb.department.Update(dept);
-                mytdb.SaveChanges();
                 return (Ok(dept));
             }
             return BadRequest($"Department Not found With Id={id}");
 
         }
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteDepartment(int id)
+        public ActionResult DeleteDepartment(int id)
         {
-            var dept = await mytdb.department.FindAsync(id);
+            var dept =  ideptSer.DeleteDepartment(id);
             if (dept == null)
             {
                 return BadRequest($"Department Not found With Id={id}");
             }
-            mytdb.department.Remove(dept);
-            mytdb.SaveChanges();
+         
             return Ok(dept);
         }
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetDepartment(int id)
+        public ActionResult GetDepartment(int id)
         {
-            var dept = await mytdb.department.FindAsync(id);
+            var dept = ideptSer.GetDepartment(id);
             if (dept == null)
             {
                 return BadRequest($"Department Not found With Id={id}");

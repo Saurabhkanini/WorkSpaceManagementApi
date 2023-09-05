@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WorkSpaceManagemetApi.Models;
+using WorkspaceManagement.BusinessLayer.IServices;
+using WorkspaceManagement.DataAccessLayer.Interfaces;
+using WorkspaceManagement.DataAccessLayer.Models;
 using WorkSpaceManagemetApi.Repository;
 
 namespace WorkSpaceManagemetApi.Controllers
@@ -10,17 +12,17 @@ namespace WorkSpaceManagemetApi.Controllers
     [ApiController]
     public class EmployeeController : ControllerBase
     {
-        private readonly IEmployee _employeeRepo;
+        private readonly IEmployeeService _employeeService;
 
-        public EmployeeController(IEmployee employeeRepo)
+        public EmployeeController(IEmployeeService employeeService)
         {
-            _employeeRepo = employeeRepo;
+            _employeeService = employeeService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Employee>> GetAllEmployees()
         {
-            var employees = _employeeRepo.GetAllEmployee();
+            var employees = _employeeService.GetAllEmployee();
             if (employees == null)
             {
                 return NotFound();
@@ -31,7 +33,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Employee> GetEmployeeById(int id)
         {
-            var employee = _employeeRepo.GetEmployee(id);
+            var employee = _employeeService.GetEmployee(id);
             if (employee == null)
             {
                 return NotFound();
@@ -42,18 +44,18 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpPost]
         public ActionResult<Employee> AddEmployee(Employee employee)
         {
-            var addedEmployee = _employeeRepo.AddEmployee(employee);
+            var addedEmployee = _employeeService.AddEmployee(employee);
             if (addedEmployee == null)
             {
                 return BadRequest();
             }
-            return CreatedAtAction(nameof(GetEmployeeById), new { id = addedEmployee.EmployeeId }, addedEmployee);
+            return Ok(addedEmployee);
         }
 
         [HttpPut("{id}")]
         public ActionResult<Employee> UpdateEmployee(int id, Employee employee)
         {
-            var updatedEmployee = _employeeRepo.UpdateEmployee(employee, id);
+            var updatedEmployee = _employeeService.UpdateEmployee(employee, id);
             if (updatedEmployee == null)
             {
                 return NotFound();
@@ -64,12 +66,22 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Employee> DeleteEmployee(int id)
         {
-            var deletedEmployee = _employeeRepo.DeleteEmployee(id);
+            var deletedEmployee = _employeeService.DeleteEmployee(id);
             if (deletedEmployee == null)
             {
                 return NotFound();
             }
             return Ok(deletedEmployee);
+        }
+        [HttpGet("EmployeeByLocation")]
+        public ActionResult GetEmployeeByLocation(string locationName)
+        {
+            var employees =_employeeService.GetEmployeesByLocation(locationName);
+            if(employees == null)
+            {
+                return NotFound($"No Employee Found With Location {locationName}");
+            }
+            return Ok(employees);
         }
     }
 }

@@ -1,26 +1,25 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WorkSpaceManagemetApi.Models;
-using WorkSpaceManagemetApi.Repository;
-
+using WorkspaceManagement.BusinessLayer.IServices;
+using WorkspaceManagement.DataAccessLayer.Interfaces;
+using WorkspaceManagement.DataAccessLayer.Models;
 namespace WorkSpaceManagemetApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class RoomBookingController : ControllerBase
     {
-        private readonly IRoomBooking _roomBookingRepo;
+        private readonly IRoomBookingService _roomBookingService;
 
-        public RoomBookingController(IRoomBooking roomBookingRepo)
+        public RoomBookingController(IRoomBookingService roomBookingService)
         {
-            _roomBookingRepo = roomBookingRepo;
+            _roomBookingService = roomBookingService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<RoomBooking>> GetAllRbookings()
         {
-            var roomBookings = _roomBookingRepo.GetAllRbooking();
+            var roomBookings = _roomBookingService.GetAllRbooking();
             if (roomBookings == null)
             {
                 return NotFound();
@@ -31,7 +30,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<RoomBooking> GetRbookingById(int id)
         {
-            var roomBooking = _roomBookingRepo.GetRbooking(id);
+            var roomBooking = _roomBookingService.GetRbooking(id);
             if (roomBooking == null)
             {
                 return NotFound();
@@ -42,18 +41,18 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpPost]
         public ActionResult<RoomBooking> BookRoom(RoomBooking roomBooking)
         {
-            var bookedRoom = _roomBookingRepo.BookRoom(roomBooking);
+            var bookedRoom = _roomBookingService.BookRoom(roomBooking);
             if (bookedRoom == null)
             {
                 return BadRequest();
             }
-            return CreatedAtAction(nameof(GetRbookingById), new { id = bookedRoom.BookingId }, bookedRoom);
+            return Ok(bookedRoom);
         }
 
         [HttpPut("{id}")]
         public ActionResult<RoomBooking> UpdateRbookingDetail(int id, RoomBooking roomBooking)
         {
-            var updatedRoomBooking = _roomBookingRepo.UpdateRbookingDetail(roomBooking, id);
+            var updatedRoomBooking = _roomBookingService.UpdateRbookingDetail(roomBooking, id);
             if (updatedRoomBooking == null)
             {
                 return NotFound();
@@ -64,12 +63,22 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult<RoomBooking> DeleteBooking(int id)
         {
-            var deletedBooking = _roomBookingRepo.DeleteBooking(id);
+            var deletedBooking = _roomBookingService.DeleteBooking(id);
             if (deletedBooking == null)
             {
                 return NotFound();
             }
             return Ok(deletedBooking);
+        }
+        [HttpGet("RoomBookingByLocation")]
+        public ActionResult<RoomBooking> GetRoomBookingByLocation(string locationName)
+        {
+            var roomBooking = _roomBookingService.GetRoomBookingByLocation(locationName);
+            if (roomBooking == null)
+            {
+                return NotFound($"No RoomBooking Found With Location {locationName}");
+            }
+            return Ok(roomBooking);
         }
 
     }

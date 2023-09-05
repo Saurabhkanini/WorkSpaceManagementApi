@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WorkSpaceManagemetApi.Models;
+using WorkspaceManagement.BusinessLayer.IServices;
+using WorkspaceManagement.DataAccessLayer.Interfaces;
+using WorkspaceManagement.DataAccessLayer.Models;
 using WorkSpaceManagemetApi.Repository;
 
 namespace WorkSpaceManagemetApi.Controllers
@@ -10,17 +12,17 @@ namespace WorkSpaceManagemetApi.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        private readonly IEvent _eventRepo;
+        private readonly IEventService _eventService;
 
-        public EventController(IEvent eventRepo)
+        public EventController(IEventService eventService)
         {
-            _eventRepo = eventRepo;
+            _eventService = eventService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Events>> GetAllEvents()
-        {
-            var events = _eventRepo.GetAllEvents();
+        {                                                                           
+            var events = _eventService.GetAllEvents();
             if (events == null)
             {
                 return NotFound();
@@ -31,7 +33,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Events> GetEventById(int id)
         {
-            var evnt = _eventRepo.GetEvent(id);
+            var evnt = _eventService.GetEvent(id);
             if (evnt == null)
             {
                 return NotFound();
@@ -42,18 +44,18 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpPost]
         public ActionResult<Events> AddEvent(Events evnt)
         {
-            var addedEvent = _eventRepo.AddEvent(evnt);
+            var addedEvent = _eventService.AddEvent(evnt);
             if (addedEvent == null)
             {
                 return BadRequest();
             }
-            return CreatedAtAction(nameof(GetEventById), new { id = addedEvent.EventId }, addedEvent);
+            return Ok(addedEvent);
         }
 
         [HttpPut("{id}")]
         public ActionResult<Events> UpdateEvent(int id, Events evnt)
         {
-            var updatedEvent = _eventRepo.UpdateEvent(evnt, id);
+            var updatedEvent = _eventService.UpdateEvent(evnt, id);
             if (updatedEvent == null)
             {
                 return NotFound();
@@ -64,12 +66,22 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Events> DeleteEvent(int id)
         {
-            var deletedEvent = _eventRepo.DeleteEvent(id);
+            var deletedEvent = _eventService.DeleteEvent(id);
             if (deletedEvent == null)
             {
                 return NotFound();
             }
             return Ok(deletedEvent);
+        }
+        [HttpGet("EventByLocation")]
+        public ActionResult<Events> GetEventsByLocation(string locationName)
+        {
+            var events=_eventService.GetEventsByLocation(locationName);
+            if(events == null)
+            {
+                return NotFound($"No Event Found with LocationName {locationName}");
+            }
+            return Ok(events);
         }
 
     }

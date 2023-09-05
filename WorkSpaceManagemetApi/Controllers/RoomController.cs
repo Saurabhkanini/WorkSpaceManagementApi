@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WorkSpaceManagemetApi.Models;
-using WorkSpaceManagemetApi.Repository;
+﻿using Microsoft.AspNetCore.Mvc;
+using WorkspaceManagement.BusinessLayer.IServices;
+using WorkspaceManagement.DataAccessLayer.Models;
 
 namespace WorkSpaceManagemetApi.Controllers
 {
@@ -10,17 +8,17 @@ namespace WorkSpaceManagemetApi.Controllers
     [ApiController]
     public class RoomController : ControllerBase
     {
-        private readonly IRoomDetail _roomDetailRepo;
+        private readonly IRoomDetailService _roomDetailService;
 
-        public RoomController(IRoomDetail roomDetailRepo)
+        public RoomController(IRoomDetailService roomDetailService)
         {
-            _roomDetailRepo = roomDetailRepo;
+            _roomDetailService = roomDetailService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<RoomDetail>> GetAllRooms()
         {
-            var roomDetails = _roomDetailRepo.GetAllRooms();
+            var roomDetails = _roomDetailService.GetAllRooms();
             if (roomDetails == null)
             {
                 return NotFound();
@@ -31,7 +29,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<RoomDetail> GetRoomDetailById(int id)
         {
-            var roomDetail = _roomDetailRepo.GetRoomDetail(id);
+            var roomDetail = _roomDetailService.GetRoomDetail(id);
             if (roomDetail == null)
             {
                 return NotFound();
@@ -42,18 +40,18 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpPost]
         public ActionResult<RoomDetail> AddRoom(RoomDetail roomDetail)
         {
-            var addedRoom = _roomDetailRepo.AddRoom(roomDetail);
+            var addedRoom = _roomDetailService.AddRoom(roomDetail);
             if (addedRoom == null)
             {
                 return BadRequest();
             }
-            return CreatedAtAction(nameof(GetRoomDetailById), new { id = addedRoom.RoomId }, addedRoom);
+            return Ok(addedRoom);
         }
 
         [HttpPut("{id}")]
         public ActionResult<RoomDetail> UpdateRoomDetail(int id, RoomDetail roomDetail)
         {
-            var updatedRoom = _roomDetailRepo.UpdateRoomDetail(roomDetail, id);
+            var updatedRoom = _roomDetailService.UpdateRoomDetail(roomDetail, id);
             if (updatedRoom == null)
             {
                 return NotFound();
@@ -64,12 +62,22 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult<RoomDetail> DeleteRoom(int id)
         {
-            var deletedRoom = _roomDetailRepo.DeleteRoom(id);
+            var deletedRoom = _roomDetailService.DeleteRoom(id);
             if (deletedRoom == null)
             {
                 return NotFound();
             }
             return Ok(deletedRoom);
+        }
+        [HttpGet("RoomDetailByLocation")]
+        public ActionResult<RoomDetail> GetRoomByLocation(string locationName)
+        {
+            var roomDetail=_roomDetailService.GetConferenceByLocation(locationName);
+            if (roomDetail == null)
+            {
+                return NotFound($"No Room Found With Location {locationName}");
+            }
+            return Ok(roomDetail);
         }
     }
 }

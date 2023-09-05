@@ -1,0 +1,17 @@
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\bin\Debug\net6.0\WorkspaceManagement.BusinessLayer.deps.json
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\bin\Debug\net6.0\WorkspaceManagement.BusinessLayer.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\bin\Debug\net6.0\WorkspaceManagement.BusinessLayer.pdb
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\bin\Debug\net6.0\WorkspaceManagement.DataAccessLayer.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\bin\Debug\net6.0\WorkspaceManagement.DataAccessLayer.pdb
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\WorkspaceManagement.BusinessLayer.csproj.AssemblyReference.cache
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\WorkspaceManagement.BusinessLayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\WorkspaceManagement.BusinessLayer.AssemblyInfoInputs.cache
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\WorkspaceManagement.BusinessLayer.AssemblyInfo.cs
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\WorkspaceManagement.BusinessLayer.csproj.CoreCompileInputs.cache
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\WorkspaceManagement.BusinessLayer.csproj.CopyComplete
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\WorkspaceManagement.BusinessLayer.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\refint\WorkspaceManagement.BusinessLayer.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\WorkspaceManagement.BusinessLayer.pdb
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\ref\WorkspaceManagement.BusinessLayer.dll
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\bin\Debug\net6.0\WorkspaceManagement.BusinessLayer.runtimeconfig.json
+C:\Users\itzsa\source\repos\WorkSpaceManagemetApi\WorkspaceManagement.BusinessLayer\obj\Debug\net6.0\WorkspaceManagement.BusinessLayer.genruntimeconfig.cache

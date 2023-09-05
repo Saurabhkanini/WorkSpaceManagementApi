@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using WorkSpaceManagemetApi.Models;
+using WorkspaceManagement.BusinessLayer.IServices;
+using WorkspaceManagement.DataAccessLayer.Interfaces;
+using WorkspaceManagement.DataAccessLayer.Models;
 using WorkSpaceManagemetApi.Repository;
 
 namespace WorkSpaceManagemetApi.Controllers
@@ -10,17 +12,17 @@ namespace WorkSpaceManagemetApi.Controllers
     [ApiController]
     public class LocationController : ControllerBase
     {
-        private readonly ILocation _locationRepo;
+        private readonly ILocationService _locationService;
 
-        public LocationController(ILocation locationRepo)
+        public LocationController(ILocationService locationService)
         {
-            _locationRepo = locationRepo;
+            _locationService = locationService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<Location>> GetAllLocations()
         {
-            var locations = _locationRepo.GetAllLocation();
+            var locations = _locationService.GetAllLocation();
             if (locations == null)
             {
                 return NotFound();
@@ -31,7 +33,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<Location> GetLocationById(int id)
         {
-            var location = _locationRepo.GetLocation(id);
+            var location = _locationService.GetLocation(id);
             if (location == null)
             {
                 return NotFound();
@@ -42,7 +44,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpPost]
         public ActionResult<Location> AddLocation(Location location)
         {
-            var addedLocation = _locationRepo.AddLocation(location);
+            var addedLocation = _locationService.AddLocation(location);
             if (addedLocation == null)
             {
                 return BadRequest();
@@ -53,7 +55,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpPut("{id}")]
         public ActionResult<Location> UpdateLocation(int id, Location location)
         {
-            var updatedLocation = _locationRepo.UpdateLocation(location, id);
+            var updatedLocation = _locationService.UpdateLocation(location, id);
             if (updatedLocation == null)
             {
                 return NotFound();
@@ -64,7 +66,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Location> DeleteLocation(int id)
         {
-            var deletedLocation = _locationRepo.DeleteLocation(id);
+            var deletedLocation = _locationService.DeleteLocation(id);
             if (deletedLocation == null)
             {
                 return NotFound();

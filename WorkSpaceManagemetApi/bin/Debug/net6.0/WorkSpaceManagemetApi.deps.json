@@ -13,7 +13,9 @@
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "6.0.21",
           "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21",
           "Microsoft.EntityFrameworkCore.Tools": "6.0.21",
-          "Swashbuckle.AspNetCore": "6.2.3"
+          "Swashbuckle.AspNetCore": "6.2.3",
+          "WorkspaceManagement.BusinessLayer": "1.0.0",
+          "WorkspaceManagement.DataAccessLayer": "1.0.0"
         },
         "runtime": {
           "WorkSpaceManagemetApi.dll": {}
@@ -557,6 +559,24 @@
             "fileVersion": "4.700.19.56404"
           }
         }
+      },
+      "WorkspaceManagement.BusinessLayer/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.21",
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21",
+          "WorkspaceManagement.DataAccessLayer": "1.0.0"
+        },
+        "runtime": {
+          "WorkspaceManagement.BusinessLayer.dll": {}
+        }
+      },
+      "WorkspaceManagement.DataAccessLayer/1.0.0": {
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.SqlServer": "6.0.21"
+        },
+        "runtime": {
+          "WorkspaceManagement.DataAccessLayer.dll": {}
+        }
       }
     }
   },
@@ -950,6 +970,16 @@
       "sha512": "sha512-CeWTdRNfRaSh0pm2gDTJFwVaXfTq6Xwv/sA887iwPTneW7oMtMlpvDIO+U60+3GWTB7Aom6oQwv5VZVUhQRdPQ==",
       "path": "system.windows.extensions/4.7.0",
       "hashPath": "system.windows.extensions.4.7.0.nupkg.sha512"
+    },
+    "WorkspaceManagement.BusinessLayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "WorkspaceManagement.DataAccessLayer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

@@ -1,26 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WorkSpaceManagemetApi.Models;
-using WorkSpaceManagemetApi.Repository;
-
+﻿using Microsoft.AspNetCore.Mvc;
+using WorkspaceManagement.BusinessLayer.IServices;
+using WorkspaceManagement.DataAccessLayer.Models;
 namespace WorkSpaceManagemetApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class DeskBookingController : ControllerBase
     {
-        private readonly IDeskBooking _deskBookingRepo;
+        private readonly IDeskBookingService _deskBookingService;
 
-        public DeskBookingController(IDeskBooking deskBookingRepo)
+        public DeskBookingController(IDeskBookingService deskBookingService)
         {
-            _deskBookingRepo = deskBookingRepo;
+            _deskBookingService = deskBookingService;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<DeskBooking>> GetAllDbookings()
         {
-            var deskBookings = _deskBookingRepo.GetAllDbooking();
+            var deskBookings = _deskBookingService.GetAllDbooking();
             if (deskBookings == null)
             {
                 return NotFound();
@@ -31,7 +28,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<DeskBooking> GetDbookingById(int id)
         {
-            var deskBooking = _deskBookingRepo.GetDbooking(id);
+            var deskBooking = _deskBookingService.GetDbooking(id);
             if (deskBooking == null)
             {
                 return NotFound();
@@ -42,7 +39,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpPost]
         public ActionResult<DeskBooking> BookDesk(DeskBooking deskBooking)
         {
-            var bookedDesk = _deskBookingRepo.BookDesk(deskBooking);
+            var bookedDesk = _deskBookingService.BookDesk(deskBooking);
             if (bookedDesk == null)
             {
                 return BadRequest();
@@ -53,7 +50,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpPut("{id}")]
         public ActionResult<DeskBooking> UpdateDbookingDetail(int id, DeskBooking deskBooking)
         {
-            var updatedDeskBooking = _deskBookingRepo.UpdateDbookingDetail(deskBooking, id);
+            var updatedDeskBooking = _deskBookingService.UpdateDbookingDetail(deskBooking, id);
             if (updatedDeskBooking == null)
             {
                 return NotFound();
@@ -64,7 +61,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpDelete("{id}")]
         public ActionResult<DeskBooking> DeleteBooking(int id)
         {
-            var deletedBooking = _deskBookingRepo.DeleteBooking(id);
+            var deletedBooking = _deskBookingService.DeleteBooking(id);
             if (deletedBooking == null)
             {
                 return NotFound();

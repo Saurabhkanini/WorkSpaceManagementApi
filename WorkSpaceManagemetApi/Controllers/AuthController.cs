@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using WorkSpaceManagemetApi.Models;
+using WorkspaceManagement.DataAccessLayer.Data;
+using WorkspaceManagement.DataAccessLayer.Models;
 
 namespace WorkSpaceManagemetApi.Controllers
 {
@@ -13,18 +15,18 @@ namespace WorkSpaceManagemetApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IConfiguration configuration;
-        private readonly WsDbContext uDbC;
-        public AuthController(WsDbContext udb, IConfiguration ic)
+        private readonly WorkSpaceDbContext uDbC;
+        public AuthController(WorkSpaceDbContext udb, IConfiguration ic)
         {
             this.uDbC = udb;
             this.configuration = ic;
 
         }
         [HttpPost("Register")]
-        public async Task<ActionResult> Register(AdminRegister ud)
+        public async  Task<ActionResult> Register(AdminRegister ud)
         {
 
-            var existingUserCheck = uDbC.adminRegisters.FirstOrDefault(x => x.Email == ud.Email);
+            var existingUserCheck =  await uDbC.AdminRegisters.FirstOrDefaultAsync(x => x.Email == ud.Email);
             if (existingUserCheck == null)
             {
                 string hashpassword = BCrypt.Net.BCrypt.HashPassword(ud.Password);
@@ -38,7 +40,7 @@ namespace WorkSpaceManagemetApi.Controllers
                 
 
                 };
-                uDbC.adminRegisters.Add(user);
+                uDbC.AdminRegisters.Add(user);
                 uDbC.SaveChanges();
                 return Ok(user);
 
@@ -49,10 +51,15 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpPost("Login")]
         public async Task<ActionResult> SignIn(AdminLogin ud)
         {
-            string email = ud.Email;
-            string pass = ud.Password;
-            var user = uDbC.adminRegisters.FirstOrDefault(x => x.Email == email);
-            //user.Password == ud.Password
+            string email = "";
+            string pass = "";
+            if (ud.Email!=null && ud.Password != null)
+            {
+                 email = ud.Email;
+                 pass = ud.Password;
+            }
+           
+            var user = await uDbC.AdminRegisters.FirstOrDefaultAsync(x => x.Email == email);
             if (user!= null && BCrypt.Net.BCrypt.Verify(pass, user.Password))
             {
                 var token = CreatToken(user);
@@ -66,11 +73,16 @@ namespace WorkSpaceManagemetApi.Controllers
 
         private string CreatToken(AdminRegister ud)
         {
-            List<Claim> claims = new List<Claim>
+            string email = "";
+            if (ud.Email != null)
             {
-                new Claim(ClaimTypes.Name, ud.Email),
+                email=ud.Email;  
+            }
+            List<Claim> claims = new()
+            {
+                new Claim(ClaimTypes.Name, email),
                 new Claim(ClaimTypes.Role,"admin")
-            };
+              };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetSection("AppSetting:Token").Value!));
             var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
             var token = new JwtSecurityToken(
@@ -85,7 +97,7 @@ namespace WorkSpaceManagemetApi.Controllers
         [HttpGet("getAdminByEmail")]
         public async Task<ActionResult> GetUserByEmail(string email)
         {
-            var user=uDbC.adminRegisters.FirstOrDefault(x => x.Email == email);
+            var user =await uDbC.AdminRegisters.FirstOrDefaultAsync(x => x.Email == email);
             if (user == null)
             {
                 return NotFound($"User Not Found With {email}");
@@ -96,7 +108,7 @@ namespace WorkSpaceManagemetApi.Controllers
 
         public async Task<ActionResult> GetAllAdmin()
         {
-            var admins = uDbC.adminRegisters.ToList();
+            var admins = await uDbC.AdminRegisters.ToListAsync();
             return Ok(admins);
 
         }
