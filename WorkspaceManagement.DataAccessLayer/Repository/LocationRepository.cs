@@ -29,7 +29,12 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.Location.Find(id);
+                var location= _dbContext.Location.Find(id);
+                if (location == null)
+                {
+                    throw new Exception();
+                }
+                return location;    
             }
             catch (Exception ex)
             {
@@ -55,12 +60,13 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                Location existingLocation = _dbContext.Location.Find(id);
-                if (existingLocation != null)
+                var existingLocation = _dbContext.Location.Find(id);
+                if (existingLocation == null)
                 {
-                    existingLocation.FloorNumberOrBuildingName = loc.FloorNumberOrBuildingName;
-                    _dbContext.SaveChanges();
+                    throw new Exception();
                 }
+                existingLocation.FloorNumberOrBuildingName = loc.FloorNumberOrBuildingName;
+                _dbContext.SaveChanges();
                 return existingLocation;
             }
             catch (Exception ex)
@@ -73,12 +79,13 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                Location locationToDelete = _dbContext.Location.Find(id);
-                if (locationToDelete != null)
+                var locationToDelete = _dbContext.Location.Find(id);
+                if (locationToDelete == null)
                 {
-                    _dbContext.Location.Remove(locationToDelete);
-                    _dbContext.SaveChanges();
+                    throw new Exception();   
                 }
+                _dbContext.Location.Remove(locationToDelete);
+                _dbContext.SaveChanges();
                 return locationToDelete;
             }
             catch (Exception ex)

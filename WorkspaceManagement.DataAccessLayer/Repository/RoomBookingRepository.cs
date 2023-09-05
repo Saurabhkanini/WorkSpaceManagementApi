@@ -17,7 +17,7 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                var roomBooking=_dbContext.RoomBooking.Include(x=>x.RoomDetail).ThenInclude(x=>x.Location).ToList();
+                var roomBooking=_dbContext.RoomBooking.Include(x=>x.RoomDetail).ThenInclude(x=>x!.Location).ToList();
                 return roomBooking;
             }
             catch (Exception ex)
@@ -30,7 +30,12 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.RoomBooking.Find(id);
+                var roomBooking=_dbContext.RoomBooking.Find(id);
+                if(roomBooking == null)
+                {
+                    throw new Exception();
+                }
+                return roomBooking;
             }
             catch (Exception ex)
             {
@@ -56,12 +61,14 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                RoomBooking existingBooking = _dbContext.RoomBooking.Find(id);
-                if (existingBooking != null)
+                var existingBooking = _dbContext.RoomBooking.Find(id);
+                if (existingBooking == null)
                 {
-                    existingBooking.MeetingTitle = rb.MeetingTitle;
-                    _dbContext.SaveChanges();
+                    throw new Exception();
+                  
                 }
+                existingBooking.MeetingTitle = rb.MeetingTitle;
+                _dbContext.SaveChanges();
                 return existingBooking;
             }
             catch (Exception ex)
@@ -74,12 +81,14 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                RoomBooking bookingToDelete = _dbContext.RoomBooking.Find(id);
-                if (bookingToDelete != null)
+                var bookingToDelete = _dbContext.RoomBooking.Find(id);
+                if (bookingToDelete == null)
                 {
-                    _dbContext.RoomBooking.Remove(bookingToDelete);
-                    _dbContext.SaveChanges();
+                    throw new Exception();  
+             
                 }
+                _dbContext.RoomBooking.Remove(bookingToDelete);
+                _dbContext.SaveChanges();
                 return bookingToDelete;
             }
             catch (Exception ex)

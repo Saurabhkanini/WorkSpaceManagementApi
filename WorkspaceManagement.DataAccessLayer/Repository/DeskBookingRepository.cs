@@ -29,7 +29,12 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.DeskBookings.Find(id);
+                var dbooking= _dbContext.DeskBookings.Find(id);
+                if(dbooking == null)
+                {
+                    throw new Exception();
+                }
+                return dbooking;
             }
             catch (Exception ex)
             {
@@ -56,12 +61,13 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                DeskBooking existingBooking = _dbContext.DeskBookings.Find(id);
-                if (existingBooking != null)
+                var existingBooking = _dbContext.DeskBookings.Find(id);
+                if (existingBooking == null)
                 {
-                    existingBooking.BookingDate = db.BookingDate;
-                    _dbContext.SaveChanges();
+                    throw new Exception();
                 }
+                existingBooking.BookingDate = db.BookingDate;
+                _dbContext.SaveChanges();
                 return existingBooking;
             }
             catch (Exception ex)
@@ -75,17 +81,18 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                DeskBooking bookingToDelete = _dbContext.DeskBookings.Find(id);
-                if (bookingToDelete != null)
+                var bookingToDelete = _dbContext.DeskBookings.Find(id);
+                if (bookingToDelete == null)
                 {
-                    _dbContext.DeskBookings.Remove(bookingToDelete);
-                    _dbContext.SaveChanges();
+                    throw new Exception();
                 }
+                _dbContext.DeskBookings.Remove(bookingToDelete);
+                _dbContext.SaveChanges();
                 return bookingToDelete;
             }
             catch (Exception ex)
             {
-                throw (ex);
+                throw new Exception(ex.Message);
 
             }
         }

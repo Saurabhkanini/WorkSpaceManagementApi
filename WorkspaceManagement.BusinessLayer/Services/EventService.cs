@@ -78,7 +78,7 @@ namespace WorkspaceManagement.BusinessLayer.Services
                 throw new CustomDataAccessException("Error Occurred", ex);
             }
         }
-        public async Task<IEnumerable<Events>> GetEventsByLocation(string locationName)
+        public IEnumerable<Events> GetEventsByLocation(string locationName)
         {
             var events = eventRepository.GetAllEvents()
                         .Where(e => e.Location?.City?.ToLower() == locationName.ToLower())

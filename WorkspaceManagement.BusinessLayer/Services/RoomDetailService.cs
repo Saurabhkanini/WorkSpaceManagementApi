@@ -83,7 +83,7 @@ namespace WorkspaceManagement.BusinessLayer.Services
                 throw new CustomDataAccessException("Error Occurred", ex);
             }
         }
-        public async Task<IEnumerable<RoomDetail>> GetConferenceByLocation(string locationName)
+        public IEnumerable<RoomDetail> GetConferenceByLocation(string locationName)
         {
             var rooms = roomDetailRepository.GetAllRooms()
                           .Where(e => e.Location?.City?.ToLower() == locationName.ToLower())

@@ -29,7 +29,12 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.Employees.Find(id);
+                var employee= _dbContext.Employees.Find(id);
+                if (employee == null)
+                {
+                    throw new Exception();
+                }
+                return employee;
             }
             catch (Exception ex)
             {
@@ -55,14 +60,14 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                Employee existingEmployee = _dbContext.Employees.Find(id);
-                if (existingEmployee != null)
+                var existingEmployee = _dbContext.Employees.Find(id);
+                if (existingEmployee == null)
                 {
-                    existingEmployee.Fname = employee.Fname;
-                    existingEmployee.Email = employee.Email;
-                    // Update other properties of the employee here
-                    _dbContext.SaveChanges();
+                    throw new Exception();
                 }
+                existingEmployee.Fname = employee.Fname;
+                existingEmployee.Email = employee.Email;
+                _dbContext.SaveChanges();
                 return existingEmployee;
             }
             catch (Exception ex)
@@ -75,12 +80,13 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                Employee employeeToRemove = _dbContext.Employees.Find(id);
-                if (employeeToRemove != null)
+                var employeeToRemove = _dbContext.Employees.Find(id);
+                if (employeeToRemove == null)
                 {
-                    _dbContext.Employees.Remove(employeeToRemove);
-                    _dbContext.SaveChanges();
+                    throw new Exception();
                 }
+                _dbContext.Employees.Remove(employeeToRemove);
+                _dbContext.SaveChanges();
                 return employeeToRemove;
             }
             catch (Exception ex)

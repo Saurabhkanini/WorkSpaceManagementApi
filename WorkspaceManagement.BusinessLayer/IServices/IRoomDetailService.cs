@@ -14,7 +14,7 @@ namespace WorkspaceManagement.BusinessLayer.IServices
         RoomDetail AddRoom(RoomDetail rd);
         RoomDetail UpdateRoomDetail(RoomDetail rd, int id);
         RoomDetail DeleteRoom(int id);
-        Task<IEnumerable<RoomDetail>> GetConferenceByLocation(string locationName);
+       IEnumerable<RoomDetail> GetConferenceByLocation(string locationName);
 
     }
 }

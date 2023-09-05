@@ -14,7 +14,7 @@ namespace WorkspaceManagement.BusinessLayer.IServices
         RoomBooking BookRoom(RoomBooking db);
         RoomBooking UpdateRbookingDetail(RoomBooking db, int id);
         RoomBooking DeleteBooking(int id);
-        Task<IEnumerable<RoomBooking>> GetRoomBookingByLocation(string locationName);
+        IEnumerable<RoomBooking> GetRoomBookingByLocation(string locationName);
 
     }
 }

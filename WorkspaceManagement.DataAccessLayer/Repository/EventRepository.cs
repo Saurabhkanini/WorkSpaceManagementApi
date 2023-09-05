@@ -29,7 +29,12 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.Events.Include(x=>x.Location).FirstOrDefault(x=>x.EventId==id);
+                var eventt = _dbContext.Events.Include(x=>x.Location).FirstOrDefault(x=>x.EventId==id);
+                if (eventt == null)
+                {
+                    throw new Exception();
+                }
+                return eventt;
             }
             catch (Exception ex)
             {
@@ -55,12 +60,13 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                Events existingEvent = _dbContext.Events.Find(id);
-                if (existingEvent != null)
+                var existingEvent = _dbContext.Events.Find(id);
+                if (existingEvent == null)
                 {
-                    existingEvent.EventTitle = e.EventTitle;
-                    _dbContext.SaveChanges();
+                    throw new Exception();
                 }
+                existingEvent.EventTitle = e.EventTitle;
+                _dbContext.SaveChanges();
                 return existingEvent;
             }
             catch (Exception ex)
@@ -73,12 +79,13 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                Events eventToDelete = _dbContext.Events.Find(id);
-                if (eventToDelete != null)
+                var eventToDelete = _dbContext.Events.Find(id);
+                if (eventToDelete == null)
                 {
-                    _dbContext.Events.Remove(eventToDelete);
-                    _dbContext.SaveChanges();
+                    throw new Exception();
                 }
+                _dbContext.Events.Remove(eventToDelete);
+                _dbContext.SaveChanges();
                 return eventToDelete;
             }
             catch (Exception ex)

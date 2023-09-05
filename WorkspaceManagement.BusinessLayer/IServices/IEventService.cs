@@ -14,7 +14,7 @@ namespace WorkspaceManagement.BusinessLayer.IServices
         Events AddEvent(Events e);
         Events UpdateEvent(Events e,int id);
         Events DeleteEvent(int id);
-        Task<IEnumerable<Events>> GetEventsByLocation(string locationName);
+        IEnumerable<Events> GetEventsByLocation(string locationName);
 
     }
 

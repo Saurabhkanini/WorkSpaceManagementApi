@@ -29,7 +29,12 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.RoomDetail.Include(x=>x.Location).FirstOrDefault(x=>x.RoomId==id);
+                var room= _dbContext.RoomDetail.Include(x=>x.Location).FirstOrDefault(x=>x.RoomId==id);
+                if(room==null)
+                {
+                    throw new InvalidDataException();
+                }
+                return room;
             }
             catch (Exception ex)
             {
@@ -55,12 +60,14 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                RoomDetail existingRoom = _dbContext.RoomDetail.Find(id);
+                var existingRoom = _dbContext.RoomDetail.Find(id);
                 if (existingRoom != null)
                 {
-                    existingRoom.RoomName = rd.RoomName;
-                    _dbContext.SaveChanges();
+                    throw new InvalidDataException();
+                 
                 }
+                existingRoom!.RoomName = rd.RoomName;
+                _dbContext.SaveChanges();
                 return existingRoom;
             }
             catch (Exception ex)
@@ -73,12 +80,14 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                RoomDetail roomToDelete = _dbContext.RoomDetail.Find(id);
-                if (roomToDelete != null)
+                var roomToDelete = _dbContext.RoomDetail.Find(id);
+                if (roomToDelete == null)
                 {
-                    _dbContext.RoomDetail.Remove(roomToDelete);
-                    _dbContext.SaveChanges();
+                    throw new InvalidDataException();
+                    
                 }
+                _dbContext.RoomDetail.Remove(roomToDelete);
+                _dbContext.SaveChanges();
                 return roomToDelete;
             }
             catch (Exception ex)

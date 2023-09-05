@@ -78,10 +78,10 @@ namespace WorkspaceManagement.BusinessLayer.Services
                 throw new CustomDataAccessException("Error Occurred", ex);
             }
         }
-        public async Task<IEnumerable<RoomBooking>> GetRoomBookingByLocation(string locationName)
+        public IEnumerable<RoomBooking> GetRoomBookingByLocation(string locationName)
         {
             var bookings = roomBookingRepository.GetAllRbooking()
-                           .Where(e => e.RoomDetail.Location.City.ToLower() == locationName.ToLower())
+                           .Where(e => e.RoomDetail?.Location?.City?.ToLower() == locationName.ToLower())
                            .ToList();
             if (bookings == null)
             {

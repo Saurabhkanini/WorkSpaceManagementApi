@@ -29,7 +29,12 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.Notifications.Find(id);
+                var notification= _dbContext.Notifications.Find(id);
+                if(notification == null)
+                {
+                    throw new Exception();
+                }
+                return notification;
             }
             catch (Exception ex)
             {
@@ -55,12 +60,13 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                Notification existingNotification = _dbContext.Notifications.Find(id);
-                if (existingNotification != null)
+                var existingNotification = _dbContext.Notifications.Find(id);
+                if (existingNotification == null)
                 {
-                    existingNotification.NotificationSubject = notification.NotificationSubject;
-                    _dbContext.SaveChanges();
+                    throw new Exception();  
                 }
+                existingNotification.NotificationSubject = notification.NotificationSubject;
+                _dbContext.SaveChanges();
                 return existingNotification;
             }
             catch (Exception ex)
@@ -73,12 +79,13 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                Notification notificationToDelete = _dbContext.Notifications.Find(id);
-                if (notificationToDelete != null)
+                var notificationToDelete = _dbContext.Notifications.Find(id);
+                if (notificationToDelete == null)
                 {
-                    _dbContext.Notifications.Remove(notificationToDelete);
-                    _dbContext.SaveChanges();
+                    throw new Exception();
                 }
+                _dbContext.Notifications.Remove(notificationToDelete);
+                _dbContext.SaveChanges();
                 return notificationToDelete;
             }
             catch (Exception ex)

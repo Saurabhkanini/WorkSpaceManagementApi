@@ -84,11 +84,12 @@ namespace WorkSpaceManagemetApi.Repository
             try
             {
                 var dept = _dbContext.Department.Find(id);
-                if (dept != null)
+                if (dept == null)
                 {
-                    _dbContext.Department.Remove(dept);
-                    _dbContext.SaveChanges();
+                    throw new Exception();
                 }
+                _dbContext.Department.Remove(dept);
+                _dbContext.SaveChanges();
                 return dept;
             }
             catch (Exception ex)
