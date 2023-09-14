@@ -4,7 +4,7 @@ namespace WorkspaceManagement.DataAccessLayer.Interfaces
 {
     public interface IDepartment
     {
-        Task<IEnumerable<Department>> GetAllDepartments();
+        IEnumerable<Department> GetAllDepartments();
         Task<Department> GetDepartment(int id);
         Department AddDepartment(Department e);
         Department UpdateDepartment(Department e, int id);

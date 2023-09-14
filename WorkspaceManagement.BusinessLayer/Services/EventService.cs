@@ -81,7 +81,7 @@ namespace WorkspaceManagement.BusinessLayer.Services
         public IEnumerable<Events> GetEventsByLocation(string locationName)
         {
             var events = eventRepository.GetAllEvents()
-                        .Where(e => e.Location?.City?.ToLower() == locationName.ToLower())
+                        .Where(e => e.Location?.City?.ToLower()==locationName.ToLower())
                         .ToList();
             if (events == null)
             {

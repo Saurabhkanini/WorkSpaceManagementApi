@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using WorkspaceManagement.DataAccessLayer.Data;
+﻿using WorkspaceManagement.DataAccessLayer.Data;
 using WorkspaceManagement.DataAccessLayer.Interfaces;
 using WorkspaceManagement.DataAccessLayer.Models;
 
@@ -15,11 +14,11 @@ namespace WorkSpaceManagemetApi.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Department>> GetAllDepartments()
+        public IEnumerable<Department> GetAllDepartments()
         {
             try
             {
-                return await _dbContext.Department.ToListAsync();
+                return  _dbContext.Department.ToList();
             }
             catch (Exception ex)
             {
@@ -32,11 +31,11 @@ namespace WorkSpaceManagemetApi.Repository
             try
             {
                 var department = await _dbContext.Department.FindAsync(id);
-                if(department!= null)
+                if(department== null)
                 {
-                   return department;
+                    throw new Exception();
                 }
-                return new Department();
+                return department;
             }
             catch (Exception ex)
             {

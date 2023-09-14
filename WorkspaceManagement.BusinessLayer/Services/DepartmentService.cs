@@ -14,7 +14,7 @@ namespace WorkspaceManagement.BusinessLayer.Services
             this.idepartment =idepartment ;
         }
 
-        public Task<IEnumerable<Department>> GetAllDepartments()
+        public IEnumerable<Department> GetAllDepartments()
         {
             try
             {

@@ -105,12 +105,24 @@ namespace WorkSpaceManagemetApi.Controllers
             return Ok(user);
         }
         [HttpGet]
-
         public async Task<ActionResult> GetAllAdmin()
         {
             var admins = await uDbC.AdminRegisters.ToListAsync();
             return Ok(admins);
+        }
 
+        [HttpPut("updatePass")]
+        public async Task<ActionResult> UpdatePassword(string email,AdminRegister admin)
+        {
+            var user = await uDbC.AdminRegisters.FirstOrDefaultAsync(x => x.Email == email);
+            if(user == null)
+            {
+                return NotFound($"No User Found With Email {email}");
+            }
+            string hashpassword = BCrypt.Net.BCrypt.HashPassword(admin.Password);
+            user.Password = hashpassword;
+            uDbC.SaveChanges();
+            return Ok(user);
         }
     }
 }

@@ -17,7 +17,7 @@ namespace WorkSpaceManagemetApi.Repository
         {
             try
             {
-                return _dbContext.Events.ToList();
+                return _dbContext.Events.Include(x=>x.Location).ToList();
             }
             catch (Exception ex)
             {

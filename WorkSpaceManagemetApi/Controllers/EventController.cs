@@ -77,7 +77,7 @@ namespace WorkSpaceManagemetApi.Controllers
         public ActionResult<Events> GetEventsByLocation(string locationName)
         {
             var events=_eventService.GetEventsByLocation(locationName);
-            if(events == null)
+            if (events==null)
             {
                 return NotFound($"No Event Found with LocationName {locationName}");
             }
